@@ -5,9 +5,9 @@ from __future__ import annotations
 import argparse
 from pathlib import Path
 
-from .state import TodoState
-from .storage import TodoStorage, generate_todo_id
-from .record import TodoRecord
+from todo.core.state import TodoState
+from todo.data.storage import TodoStorage, generate_todo_id
+from todo.models.record import TodoRecord
 from datetime import datetime
 
 HIGH_COLOR = "\033[91m"  # Red

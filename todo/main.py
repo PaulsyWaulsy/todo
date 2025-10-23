@@ -4,8 +4,8 @@ import sys as system
 import argparse
 
 # Local import
-from .todo import run_todo_app
-from .logger import TodoLogger
+from todo.core.todo import run_todo_app
+from todo.utils.logger import TodoLogger
 
 
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:

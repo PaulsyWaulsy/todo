@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 from dataclasses import dataclass, field
 from pathlib import Path
-from .logger import TodoLogger
+from todo.utils.logger import TodoLogger
 import time
 
 
