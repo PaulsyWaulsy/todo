@@ -19,7 +19,6 @@ Supports adding, listing, completing, and deleting tasks, with optional priority
 ```bash
 git clone https://github.com/PaulsyWaulsy/todo.git
 cd todo
-pip install -e .
 ```
 
 ## Usage
@@ -27,13 +26,7 @@ pip install -e .
 Run the program from the project directory:
 
 ```bash
-python -m todo [OPTIONS]
-```
-
-Or, if installed:
-
-```bash
-todo [OPTIONS]
+python -m src.main [OPTIONS]
 ```
 
 ## Command-Line Options
