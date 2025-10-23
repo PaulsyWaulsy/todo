@@ -25,10 +25,10 @@ def run_todo_app(args: argparse.Namespace) -> None:
 
     Args:
         args (argparse.Namespace): Parsed command-line arguments from the CLI.
+
+    Returns:
+        None
     """
-    # ------------------------------------------------------------------
-    # Initialize global state and storage
-    # ------------------------------------------------------------------
     state = TodoState(args)
     storage = TodoStorage(root=Path("data"))
 
@@ -36,18 +36,18 @@ def run_todo_app(args: argparse.Namespace) -> None:
         state.logger.info("Starting Todo Application")
 
     if args.add:
-        _handle_add_task(state, storage, args)
+        handle_add_task(state, storage, args)
     elif args.list or args.completed or args.pending:
-        _handle_list_tasks(state, storage, args)
+        handle_list_tasks(state, storage, args)
     elif args.complete:
-        _handle_mark_complete(state, storage, args.complete)
+        handle_mark_complete(state, storage, args.complete)
     elif args.delete:
-        _handle_delete_task(state, storage, args.delete)
+        handle_delete_task(state, storage, args.delete)
     else:
         state.logger.warn("No action specified. Use --help for usage info.")
 
 
-def _handle_add_task(state: TodoState, storage: TodoStorage, args: argparse.Namespace) -> None:
+def handle_add_task(state: TodoState, storage: TodoStorage, args: argparse.Namespace) -> None:
     """Add a new todo task and persist it.
 
     Args:
@@ -55,6 +55,9 @@ def _handle_add_task(state: TodoState, storage: TodoStorage, args: argparse.Name
         storage (TodoStorage): Persistent storage handler.
         description (str): Description of the todo item.
         args (argparse.Namespace): Parsed command-line arguments from the CLI.
+
+    Returns:
+        None
     """
     category = args.category
     priority = args.priority
@@ -157,7 +160,7 @@ def _sort_todo_list(todos: list[TodoRecord]) -> list[TodoRecord] | None:
     return sorted
 
 
-def _handle_list_tasks(state: TodoState, storage: TodoStorage, args: argparse.Namespace) -> None:
+def handle_list_tasks(state: TodoState, storage: TodoStorage, args: argparse.Namespace) -> None:
     """Display a list of all todo tasks.
 
     Args:
@@ -175,13 +178,16 @@ def _handle_list_tasks(state: TodoState, storage: TodoStorage, args: argparse.Na
         _print_todo(todo, i + 1)
 
 
-def _handle_mark_complete(state: TodoState, storage: TodoStorage, todo_id: str) -> None:
+def handle_mark_complete(state: TodoState, storage: TodoStorage, todo_id: str) -> None:
     """Mark a todo item as completed.
 
     Args:
         state (TodoState): Current application state.
         storage (TodoStorage): Persistent storage handler.
         todo_id (str): The ID of the todo to mark as complete.
+
+    Returns:
+        None
     """
     success = storage.mark_completed(todo_id)
     if success:
@@ -190,13 +196,16 @@ def _handle_mark_complete(state: TodoState, storage: TodoStorage, todo_id: str) 
         state.logger.warn(f"Task {todo_id} not found.")
 
 
-def _handle_delete_task(state: TodoState, storage: TodoStorage, todo_id: str) -> None:
+def handle_delete_task(state: TodoState, storage: TodoStorage, todo_id: str) -> None:
     """Delete a todo item from persistent storage.
 
     Args:
         state (TodoState): Current application state.
         storage (TodoStorage): Persistent storage handler.
         todo_id (str): The ID of the todo to delete.
+
+    Returns:
+        None
     """
     success = storage.remove_todo(todo_id)
     if success:
