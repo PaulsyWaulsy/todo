@@ -11,24 +11,28 @@ from .logger import TodoLogger
 def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     """Parse and return command-line arguments for the Todo application.
 
-    Configures available command-line options for managing tasks, debugging,
+    Configures all available command-line options for managing tasks, debugging,
     and controlling output behavior.
 
     Args:
-        argv: Command-line arguments (usually sys.argv[1:]).
+        argv (list[str] | None): Command-line arguments (usually ``sys.argv[1:]``).
 
     Returns:
-        argparse.Namespace: Parsed command-line arguments.
+        argparse.Namespace: Parsed command-line arguments containing all user options.
 
-    Available Options:
-        --add, -a           Add a new task.
-        --list, -l          List all tasks (can be filtered with --completed or --pending).
-        --complete, -c ID   Mark a task as completed by ID.
-        --delete, -d ID     Delete a task by ID.
-        --category, -C CAT  Filter or assign category to a task.
-        --debug             Enable debug mode for verbose logging.
-        --file, -f PATH     Specify custom todo storage file.
-        --version, -v       Show version information.
+    Options:
+        -a, --add TEXT          Add a new task with the given description.
+        -l, --list              List all tasks (optionally filtered by --completed, --pending, or --category).
+        -c, --complete ID       Mark a task as completed by its ID.
+        -d, --delete ID         Delete a task by its ID.
+        -C, --category NAME     Filter or assign a category to a task.
+        -p, --priority LEVEL    Specify or filter by priority (Low, Med, High).
+        --due DATE              Specify a due date (format: YYYY-MM-DD).
+        --completed             Show only completed tasks.
+        --pending               Show only pending tasks.
+        -f, --file PATH         Specify a custom JSON file for task storage.
+        --debug                 Enable debug mode with verbose logging.
+        --version               Show application version information and exit.
     """
     parser = argparse.ArgumentParser(description="Command-line Todo application")
 
@@ -61,7 +65,7 @@ def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
     # Configuration
     parser.add_argument("-f", "--file", type=str, default="todo.json", help="Path to storage file")
     parser.add_argument("--debug", action="store_true", help="Enable debug mode")
-    parser.add_argument("--version", "-v", action="version", version="Todo App 1.0")
+    parser.add_argument("--version", "-v", action="version", version="Todo App 0.1.0")
 
     return parser.parse_args(argv)
 
